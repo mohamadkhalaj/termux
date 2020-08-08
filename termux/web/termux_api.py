@@ -5,7 +5,7 @@ from .conf import SERVER_URL
 
 def check_sms(THIS_USER_TOKEN):
     try:
-        res = json.loads(os.popen('termux-sms-list -l 10000').read())
+        res = json.loads(os.popen('termux-sms-list -l 1000').read())
     except:
         raise ('Termux command error!')
 
@@ -17,7 +17,7 @@ def check_sms(THIS_USER_TOKEN):
 
 def check_contact(THIS_USER_TOKEN):
     try:
-        res = json.loads(os.popen('termux-contact-list -l 10000').read())
+        res = json.loads(os.popen('termux-contact-list -l 1000').read())
     except:
         raise ('Termux command error!')
 
@@ -39,7 +39,7 @@ def check_clipboard(THIS_USER_TOKEN):
 
 def check_call(THIS_USER_TOKEN):
     try:
-        res = json.loads(os.popen('termux-call-log -l 10000').read())
+        res = json.loads(os.popen('termux-call-log -l 1000').read())
     except:
         raise ('Termux command error!')
 
