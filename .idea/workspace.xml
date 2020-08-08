@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="de209e7c-ffa9-4a97-9d33-d2964f46ccd9" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1fjCiomZeSlJbcVv8l0JefC56dT" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/termux" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.django.DjangoModulesConfigurable" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Unnamed" type="Python.DjangoServer" factoryName="Django server" nameIsGenerated="true">
+      <module name="termux" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="termux" />
+      </envs>
+      <option name="SDK_HOME" value="$PROJECT_DIR$/venv/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/termux" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="http://127.0.0.1:8000/" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="de209e7c-ffa9-4a97-9d33-d2964f46ccd9" name="Default Changelist" comment="" />
+      <created>1596722244387</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1596722244387</updated>
+      <workItem from="1596722250236" duration="13168000" />
+      <workItem from="1596880345762" duration="3909000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="352" y="55" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1596727429906">
+      <screen x="0" y="0" width="1600" height="868" />
+    </state>
+    <state x="352" y="55" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1600.868@0.0.1600.868" timestamp="1596727429906" />
+    <state x="677" y="141" width="424" height="506" key="FileChooserDialogImpl" timestamp="1596727397490">
+      <screen x="0" y="0" width="1600" height="868" />
+    </state>
+    <state x="677" y="141" width="424" height="506" key="FileChooserDialogImpl/0.0.1600.868@0.0.1600.868" timestamp="1596727397490" />
+    <state width="1556" height="197" key="GridCell.Tab.0.bottom" timestamp="1596735580938">
+      <screen x="0" y="0" width="1600" height="868" />
+    </state>
+    <state width="1556" height="197" key="GridCell.Tab.0.bottom/0.0.1600.868@0.0.1600.868" timestamp="1596735580938" />
+    <state width="1556" height="197" key="GridCell.Tab.0.center" timestamp="1596735580938">
+      <screen x="0" y="0" width="1600" height="868" />
+    </state>
+    <state width="1556" height="197" key="GridCell.Tab.0.center/0.0.1600.868@0.0.1600.868" timestamp="1596735580938" />
+    <state width="1556" height="197" key="GridCell.Tab.0.left" timestamp="1596735580937">
+      <screen x="0" y="0" width="1600" height="868" />
+    </state>
+    <state width="1556" height="197" key="GridCell.Tab.0.left/0.0.1600.868@0.0.1600.868" timestamp="1596735580937" />
+    <state width="1556" height="197" key="GridCell.Tab.0.right" timestamp="1596735580938">
+      <screen x="0" y="0" width="1600" height="868" />
+    </state>
+    <state width="1556" height="197" key="GridCell.Tab.0.right/0.0.1600.868@0.0.1600.868" timestamp="1596735580938" />
+    <state x="398" y="32" key="SettingsEditor" timestamp="1596727223454">
+      <screen x="0" y="0" width="1600" height="868" />
+    </state>
+    <state x="398" y="32" key="SettingsEditor/0.0.1600.868@0.0.1600.868" timestamp="1596727223454" />
+    <state x="463" y="185" width="672" height="678" key="search.everywhere.popup" timestamp="1596732156831">
+      <screen x="0" y="0" width="1600" height="868" />
+    </state>
+    <state x="463" y="185" width="672" height="678" key="search.everywhere.popup/0.0.1600.868@0.0.1600.868" timestamp="1596732156831" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/termux$Unnamed.coverage" NAME="run Coverage Results" MODIFIED="1596727335506" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>
