@@ -46,7 +46,7 @@ def check_call(THIS_USER_TOKEN):
     for log in res:
         if not call_log.objects.filter(date=log['date']).exists():
             call_back = os.popen(
-                f'curl --data "token={THIS_USER_TOKEN}&name={log["name"]}&phone_number={log["phone_number"]}&type={log["type"]}&duration={log["duration"]}&date={log["date"]}" {SERVER_URL}/s/call_l og/')
+                f'curl --data "token={THIS_USER_TOKEN}&name={log["name"]}&phone_number={log["phone_number"]}&type={log["type"]}&duration={log["duration"]}&date={log["date"]}" {SERVER_URL}/s/call_log/')
 
 
 def InsertIntoDb(THIS_USER_TOKEN):
