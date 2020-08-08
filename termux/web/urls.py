@@ -3,6 +3,7 @@ from . import views
 urlpatterns = [
     url(r'^register/?$', views.register, name='register'),
     url(r'^getToken/?$', views.getToken, name='getToken'),
+    url(r'^setToken/?$', views.setToken, name='setToken'),
     url(r'^s/call_log/?$', views.s_call_log, name='s_call_log'),
     url(r'^s/sms_list/?$', views.s_sms_list, name='s_sms_list'),
     url(r'^s/contact/?$', views.s_contact, name='s_contact'),

@@ -20,13 +20,18 @@ def register(request):
         username = request.POST['username']
         password = request.POST['password']
         email = request.POST['email']
-
-        this_user = User.objects.create(username=username, password=make_password(password), email=email)
-        this_token = get_random_string(length=48)
-        THIS_USER_TOKEN = this_token
-        Token.objects.create(user = this_user, token = this_token)
-        InsertIntoDb(THIS_USER_TOKEN)
-        return JsonResponse({'status' : 200, 'token' : this_token}, encoder=JSONEncoder)
+        if not User.objects.filter(username = username).exists():
+            if not User.objects.filter(email=email).exists():
+                this_user = User.objects.create(username=username, password=make_password(password), email=email)
+                this_token = get_random_string(length=48)
+                THIS_USER_TOKEN = this_token
+                Token.objects.create(user = this_user, token = this_token)
+                InsertIntoDb(THIS_USER_TOKEN)
+                return JsonResponse({'status' : 200, 'token' : this_token}, encoder=JSONEncoder)
+            else:
+                return JsonResponse({'status': "this email, already exists!"}, encoder=JSONEncoder)
+        else:
+            return JsonResponse({'status': "this user, already exists!"}, encoder=JSONEncoder)
     else:
         return render(request, 'register.html')
 
@@ -53,6 +58,22 @@ def getToken(request):
     else:
         return JsonResponse({'status': 404}, encoder=JSONEncoder)
 
+@csrf_exempt
+@require_POST
+def setToken(request):
+
+    try:
+        username = request.POST['username']
+        token = request.POST['token']
+    except:
+        return JsonResponse({'status': 404}, encoder=JSONEncoder)
+
+    this_user  = get_object_or_404(User, username = username)
+    if not Token.objects.filter(user=this_user).exists():
+        Token.objects.create(user = this_user, token=token)
+        return JsonResponse({'status': 200, 'token': token}, encoder=JSONEncoder)
+    else:
+        return JsonResponse({'status': "this token, already set!"}, encoder=JSONEncoder)
 
 @csrf_exempt
 @require_POST

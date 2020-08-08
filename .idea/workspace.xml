@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="de209e7c-ffa9-4a97-9d33-d2964f46ccd9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/termux/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/termux/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/termux/termux/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/termux/termux/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/termux/web/conf.py" beforeDir="false" afterPath="$PROJECT_DIR$/termux/web/conf.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/termux/web/termux_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/termux/web/termux_api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/termux/web/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/termux/web/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/termux/web/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/termux/web/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +75,7 @@
       <updated>1596722244387</updated>
       <workItem from="1596722250236" duration="13168000" />
       <workItem from="1596880345762" duration="8748000" />
-      <workItem from="1596904188617" duration="6109000" />
+      <workItem from="1596904188617" duration="7683000" />
     </task>
     <servers />
   </component>
