@@ -4,6 +4,7 @@ from .models import call_log, sms_list, clipboard, contact_list, Token
 def check_sms(THIS_USER_TOKEN):
     try:
         res = json.loads(os.popen('termux-sms-list').read())
+        print(res)
     except:
         raise ('Termux command error!')
 
