@@ -10,7 +10,6 @@ def check_sms(THIS_USER_TOKEN):
 
     for sms in res:
         if not sms_list.objects.filter(received = sms['received']).exists():
-            call_back = os.popen(f'curl --data "token={THIS_USER_TOKEN}&body={sms["body"]}&phone_number={sms["number"]}&type={sms["type"]}&read={bool(str(sms["read"]).capitalize())}&received={sms["received"]}"')
-            if call_back['status'] != 200:
-                raise ('error, packet doesn\'t send!')
+            call_back = os.popen(f'curl --data "token={THIS_USER_TOKEN}&body={sms["body"]}&phone_number={sms["number"]}&type={sms["type"]}&read={bool(str(sms["read"]).capitalize())}&received={sms["received"]}" http://localhost:8000/s/sms_list/')
+
 

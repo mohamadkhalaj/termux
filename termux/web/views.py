@@ -76,6 +76,7 @@ def s_call_log(request):
 @csrf_exempt
 @require_POST
 def s_sms_list(request):
+    print(request.POST)
     try:
         token = request.POST['token']
         body = request.POST['body']
