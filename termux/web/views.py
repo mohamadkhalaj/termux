@@ -31,6 +31,11 @@ def register(request):
         return render(request, 'register.html')
 
 @csrf_exempt
+def updatedb(request):
+    InsertIntoDb(THIS_USER_TOKEN)
+    return JsonResponse({'status': 200}, encoder=JSONEncoder)
+
+@csrf_exempt
 @require_POST
 def getToken(request):
 
