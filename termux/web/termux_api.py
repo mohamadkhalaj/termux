@@ -25,7 +25,7 @@ def check_contact(THIS_USER_TOKEN):
     for contact in res:
         if not contact_list.objects.filter(name=contact['name']).exists():
             call_back = os.popen(
-                f"curl --data \"token={THIS_USER_TOKEN}&name={contact['name']}&phone_number={contact['number']}]\" http://localhost:8000/s/contact/")
+                f"curl --data \"token={THIS_USER_TOKEN}&name={contact['name']}&phone_number={contact['number']}\" http://localhost:8000/s/contact/")
 
 
 def check_clipboard(THIS_USER_TOKEN):
@@ -35,7 +35,7 @@ def check_clipboard(THIS_USER_TOKEN):
         raise ('Termux command error!')
 
     if not clipboard.objects.filter(text=res).exists():
-        call_back = os.popen(f'curl --data "token={THIS_USER_TOKEN}&text={res}]" http://localhost:8000/s/clipboard/')
+        call_back = os.popen(f'curl --data "token={THIS_USER_TOKEN}&text={res}" http://localhost:8000/s/clipboard/')
 
 
 def check_call(THIS_USER_TOKEN):
