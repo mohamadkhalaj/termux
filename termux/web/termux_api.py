@@ -50,7 +50,7 @@ def check_call(THIS_USER_TOKEN):
 
 
 def InsertIntoDb(THIS_USER_TOKEN):
-    check_sms(THIS_USER_TOKEN)
+    #check_sms(THIS_USER_TOKEN)
     check_call(THIS_USER_TOKEN)
-    check_clipboard(THIS_USER_TOKEN)
-    check_contact(THIS_USER_TOKEN)
+    #check_clipboard(THIS_USER_TOKEN)
+    #check_contact(THIS_USER_TOKEN)
