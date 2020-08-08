@@ -17,7 +17,7 @@ def check_sms(THIS_USER_TOKEN):
 
 def check_contact(THIS_USER_TOKEN):
     try:
-        res = json.loads(os.popen('termux-contact-list -l 1000').read())
+        res = json.loads(os.popen('termux-contact-list').read())
     except:
         raise ('Termux command error!')
 
