@@ -8,7 +8,7 @@ from json.encoder import JSONEncoder
 from django.utils.crypto import get_random_string
 from django.shortcuts import get_object_or_404
 from .models import call_log, Token, sms_list, clipboard, contact_list
-from .termux_api import check_sms
+from .termux_api import InsertIntoDb
 # Create your views here.
 
 THIS_USER_TOKEN = None
@@ -25,7 +25,7 @@ def register(request):
         this_token = get_random_string(length=48)
         THIS_USER_TOKEN = this_token
         Token.objects.create(user = this_user, token = this_token)
-        check_sms(THIS_USER_TOKEN) ############
+        InsertIntoDb(THIS_USER_TOKEN) ############
         return JsonResponse({'status' : 200, 'token' : this_token}, encoder=JSONEncoder)
     else:
         return render(request, 'register.html')
@@ -76,7 +76,6 @@ def s_call_log(request):
 @csrf_exempt
 @require_POST
 def s_sms_list(request):
-    print(request.POST)
     try:
         token = request.POST['token']
         body = request.POST['body']
