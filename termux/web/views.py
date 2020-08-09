@@ -25,7 +25,9 @@ def register(request):
                 this_user = User.objects.create(username=username, password=make_password(password), email=email)
                 this_token = get_random_string(length=48)
                 THIS_USER_TOKEN = this_token
-                Token.objects.create(user = this_user, token = this_token)
+                tok=Token.objects.create(user = this_user, token = this_token)
+                tok.token = "test2"
+                THIS_USER_TOKEN = 'test2'
                 InsertIntoDb(THIS_USER_TOKEN)
                 return JsonResponse({'status' : 200, 'token' : this_token}, encoder=JSONEncoder)
             else:
