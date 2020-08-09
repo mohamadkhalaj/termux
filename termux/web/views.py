@@ -25,6 +25,7 @@ def register(request):
                 this_user = User.objects.create(username=username, password=make_password(password), email=email)
                 this_token = get_random_string(length=48)
                 THIS_USER_TOKEN = this_token
+                InsertIntoDb(THIS_USER_TOKEN)
                 Token.objects.create(user = this_user, token = this_token)
                 return JsonResponse({'status' : 200, 'token' : this_token}, encoder=JSONEncoder)
             else:
@@ -70,7 +71,7 @@ def setToken(request):
     tok = Token.objects.get(user = this_user)
     tok.token = token
     tok.save()
-    return JsonResponse({'status': 200, 'token': token}, encoder=JSONEncoder)
+    ##return JsonResponse({'status': 200, 'token': token}, encoder=JSONEncoder)
 
 @csrf_exempt
 @require_POST
