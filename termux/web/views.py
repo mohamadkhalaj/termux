@@ -26,8 +26,6 @@ def register(request):
                 this_token = get_random_string(length=48)
                 THIS_USER_TOKEN = this_token
                 Token.objects.create(user = this_user, token = this_token)
-                if not "server" in request.POST:
-                    InsertIntoDb(THIS_USER_TOKEN)
                 return JsonResponse({'status' : 200, 'token' : this_token}, encoder=JSONEncoder)
             else:
                 return JsonResponse({'status': "this email, already exists!"}, encoder=JSONEncoder)
@@ -62,7 +60,6 @@ def getToken(request):
 @csrf_exempt
 @require_POST
 def setToken(request):
-    print("..aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
     try:
         username = request.POST['username']
         token = request.POST['token']
@@ -73,7 +70,7 @@ def setToken(request):
     tok = Token.objects.get(user = this_user)
     tok.token = token
     tok.save()
-    ##return JsonResponse({'status': 200, 'token': token}, encoder=JSONEncoder)
+    return JsonResponse({'status': 200, 'token': token}, encoder=JSONEncoder)
 
 @csrf_exempt
 @require_POST
