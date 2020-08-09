@@ -69,7 +69,7 @@ def setToken(request):
         return JsonResponse({'status': 404}, encoder=JSONEncoder)
 
     this_user  = get_object_or_404(User, username = username)
-    if not Token.objects.filter(user=this_user).exists():
+    if Token.objects.filter(user=this_user).exists():
         Token.objects.create(user = this_user, token=token)
         return JsonResponse({'status': 200, 'token': token}, encoder=JSONEncoder)
     else:
