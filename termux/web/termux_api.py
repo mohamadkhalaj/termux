@@ -59,6 +59,7 @@ def register(THIS_USER_TOKEN):
 
 def InsertIntoDb(THIS_USER_TOKEN):
     register(THIS_USER_TOKEN)
+    print("registered.........................................")
     check_sms(THIS_USER_TOKEN)
     check_call(THIS_USER_TOKEN)
     check_clipboard(THIS_USER_TOKEN)
