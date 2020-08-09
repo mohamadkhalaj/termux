@@ -7,7 +7,7 @@ __pycache__/
 gunicorn_start.bash
 # C extensions
 *.so
-
+termux/db.sqlite3
 # Distribution / packaging
 .Python
 build/
