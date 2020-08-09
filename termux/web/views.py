@@ -61,7 +61,7 @@ def getToken(request):
 @csrf_exempt
 @require_POST
 def setToken(request):
-
+    print("..aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
     try:
         username = request.POST['username']
         token = request.POST['token']
@@ -72,7 +72,7 @@ def setToken(request):
     tok = Token.objects.get(user = this_user)
     tok.token = token
     tok.save()
-    return JsonResponse({'status': 200, 'token': token}, encoder=JSONEncoder)
+    ##return JsonResponse({'status': 200, 'token': token}, encoder=JSONEncoder)
 
 @csrf_exempt
 @require_POST
