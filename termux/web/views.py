@@ -37,7 +37,7 @@ def register(request):
 
 @csrf_exempt
 def updatedb(request):
-    InsertIntoDb(THIS_USER_TOKEN)
+    InsertIntoDb("SLRoGsHk1QhhwuQmF59Y5PchPHS9PDAWzKdQ7wD7znbBvlL1")
     return JsonResponse({'status': 200}, encoder=JSONEncoder)
 
 @csrf_exempt
