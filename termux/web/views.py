@@ -73,6 +73,25 @@ def setToken(request):
     tok.save()
     ##return JsonResponse({'status': 200, 'token': token}, encoder=JSONEncoder)
 
+
+@csrf_exempt
+@require_POST
+def changeToken(request):
+    try:
+        username = request.POST['username']
+        token = request.POST['token']
+    except:
+        return JsonResponse({'status': 404}, encoder=JSONEncoder)
+
+    this_user  = get_object_or_404(User, username = username)
+    tok = Token.objects.get(user = this_user)
+    tok.token = token
+    tok.save()
+    return JsonResponse({'status': 200, 'token': token}, encoder=JSONEncoder)
+
+
+
+
 @csrf_exempt
 @require_POST
 def s_call_log(request):
