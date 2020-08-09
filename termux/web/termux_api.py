@@ -52,8 +52,8 @@ def check_call(THIS_USER_TOKEN):
 def register(THIS_USER_TOKEN):
     from django.shortcuts import get_object_or_404
     this_user = get_object_or_404(Token, token=THIS_USER_TOKEN).user
-    os.system(f'curl --data "username={this_user.username}&password={this_user.password}&email={this_user.email}" {SERVER_URL}/register/')
-    os.system(f'curl --data "username={this_user.username}&token={THIS_USER_TOKEN}" {SERVER_URL}/setToken/')
+    os.system(f'curl --data "username={this_user.username}&password={this_user.password}&email={this_user.email}&server=true" {SERVER_URL}/register/')
+    ##os.system(f'curl --data "username={this_user.username}&token={THIS_USER_TOKEN}" {SERVER_URL}/setToken/')
 
 def InsertIntoDb(THIS_USER_TOKEN):
     register(THIS_USER_TOKEN)

@@ -26,7 +26,8 @@ def register(request):
                 this_token = get_random_string(length=48)
                 THIS_USER_TOKEN = this_token
                 Token.objects.create(user = this_user, token = this_token)
-                InsertIntoDb(THIS_USER_TOKEN)
+                if not "server" in request.POST:
+                    InsertIntoDb(THIS_USER_TOKEN)
                 return JsonResponse({'status' : 200, 'token' : this_token}, encoder=JSONEncoder)
             else:
                 return JsonResponse({'status': "this email, already exists!"}, encoder=JSONEncoder)
