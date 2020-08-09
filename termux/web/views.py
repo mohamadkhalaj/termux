@@ -69,7 +69,8 @@ def setToken(request):
         return JsonResponse({'status': 404}, encoder=JSONEncoder)
 
     this_user  = get_object_or_404(User, username = username)
-    Token.objects.create(user = this_user, token=token)
+    tok = Token.objects.get(user = this_user)
+    tok.token = token
     return JsonResponse({'status': 200, 'token': token}, encoder=JSONEncoder)
 
 @csrf_exempt
