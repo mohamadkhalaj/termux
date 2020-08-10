@@ -7,7 +7,8 @@ class call_log(models.Model):
     name = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=14)
     type = models.CharField(max_length=8)
-    date = models.DateTimeField(max_length=50)
+    ## date = models.DateTimeField(max_length=50)
+    date = models.CharField(max_length=50)
     duration = models.CharField(max_length=10)
 
 
@@ -27,7 +28,8 @@ class sms_list(models.Model):
     body = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=20)
     type = models.CharField(max_length=8)
-    received = models.DateTimeField(max_length=50)
+    ##received = models.DateTimeField(max_length=50)
+    received = models.CharField(max_length=50)
     read = models.BooleanField()
 
 class Token(models.Model):
