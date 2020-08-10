@@ -5,4 +5,4 @@ def toDateTimeobj(date):
     year, month, day = date.split('-')
     hour, min = time.split(":")
 
-    return datetime(int(year), int(month), int(date), int(hour), int(min))
+    return datetime(int(year), int(month.lstrip("0")), int(date.lstrip("0")), int(hour.lstrip("0")), int(min.lstrip("0")))
