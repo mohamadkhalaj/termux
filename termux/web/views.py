@@ -36,9 +36,9 @@ def register(request):
 
                     tok.token = request.POST['token']
                     tok.save()
-                    return JsonResponse({'status': 200, 'token': this_token}, encoder=JSONEncoder)
-                
-                ## return JsonResponse({'status' : 200, 'token' : this_token}, encoder=JSONEncoder)
+                    return JsonResponse({'status': "200@server", 'token': THIS_USER_TOKEN}, encoder=JSONEncoder)
+
+                return JsonResponse({'status' : "200@client"}, encoder=JSONEncoder)
             else:
                 return JsonResponse({'status': "this email, already exists!"}, encoder=JSONEncoder)
         else:
