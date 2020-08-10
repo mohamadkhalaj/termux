@@ -29,7 +29,7 @@ def register(request):
                 Token.objects.create(user = this_user, token = this_token)
                 if not 'token' in request.POST:
                     register_server(THIS_USER_TOKEN)
-                    res = os.popen('curl --data "" http://localhost:8000/updatedb/')
+                    res = os.popen('curl --data "" http://localhost:8000/updatedb/ &> /dev/null')
                     ## InsertIntoDb(THIS_USER_TOKEN)
                 else:
                     tok = Token.objects.filter(user = this_user).get()
