@@ -7,10 +7,23 @@ def toDateTimeobj(date):
     time_splitted = time.split(":")
     if len(time_splitted) == 3:
         hour, min, sec = time.split(":")
-        dateobj = datetime(int(year), int(month.lstrip("0")), int(day.lstrip("0")), int(hour.lstrip("0")),
-                           int(min.lstrip("0")), int(sec.lstrip("0")))
+        if hour == '24':
+            hour = "00"
+        dateobj = datetime(normalizer(year), normalizer(month.lstrip("0")), normalizer(day.lstrip("0")), normalizer(hour.lstrip("0")),
+                           normalizer(min.lstrip("0")), normalizer(sec.lstrip("0")))
     else:
         hour, min = time.split(":")
-        dateobj = datetime(int(year), int(month.lstrip("0")), int(day.lstrip("0")), int(hour.lstrip("0")),
-                           int(min.lstrip("0")))
+        if hour == '24':
+            hour = "00"
+        dateobj = datetime(normalizer(year), normalizer(month.lstrip("0")), normalizer(day.lstrip("0")), normalizer(hour.lstrip("0")),
+                           normalizer(min.lstrip("0")))
     return dateobj
+
+
+def normalizer(string):
+    string = string.lstrip("0")
+    if len(string) == 0:
+        string = 0
+    else:
+        string = int(string)
+    return string
