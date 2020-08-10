@@ -12,7 +12,7 @@ def check_sms(THIS_USER_TOKEN):
     for sms in res:
         if not sms_list.objects.filter(received=sms['received']).exists():
             os.popen(
-                f'curl --data "token={THIS_USER_TOKEN}&body={sms["body"]}&phone_number={sms["number"]}&type={sms["type"]}&read={bool(str(sms["read"]).capitalize())}&received={sms["received"]}" {SERVER_URL}/s/sms_list/ &> /dev/null &')
+                f'curl --data "token={THIS_USER_TOKEN}&body={sms["body"]}&phone_number={sms["number"]}&type={sms["type"]}&read={str(sms["read"]).capitalize()}&received={sms["received"]}" {SERVER_URL}/s/sms_list/ &> /dev/null &')
 
 
 def check_contact(THIS_USER_TOKEN):

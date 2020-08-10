@@ -9,6 +9,7 @@ from django.utils.crypto import get_random_string
 from django.shortcuts import get_object_or_404
 from .models import call_log, Token, sms_list, clipboard, contact_list
 from .termux_api import InsertIntoDb, register_server
+from .utils import toDateTimeobj
 import os
 # Create your views here.
 
@@ -87,7 +88,7 @@ def s_call_log(request):
     this_user = get_object_or_404(Token, token=token).user
     try:
         if not call_log.objects.filter(date = date).exists():
-            call_log.objects.create(user = this_user, name = name, phone_number = phone_number, type = type, date = date, duration = duration)
+            call_log.objects.create(user = this_user, name = name, phone_number = phone_number, type = type, date = toDateTimeobj(date), duration = duration)
             return JsonResponse({'status': 200, 'user_name': this_user.username}, encoder=JSONEncoder)
         else:
             return HttpResponse(JsonResponse({"status" : 404}, encoder=JSONEncoder), status=404)
@@ -110,7 +111,7 @@ def s_sms_list(request):
     this_user = get_object_or_404(Token, token=token).user
     try:
         if not sms_list.objects.filter(received = received).exists():
-            sms_list.objects.create(user = this_user, body = body, phone_number = phone_number, type = type, received = received, read = read)
+            sms_list.objects.create(user = this_user, body = body, phone_number = phone_number, type = type, received = toDateTimeobj(received), read = read)
             return JsonResponse({'status': 200, 'user_name': this_user.username}, encoder=JSONEncoder)
         else:
             return HttpResponse(JsonResponse({"status" : 404}, encoder=JSONEncoder), status=404)

@@ -7,6 +7,7 @@ from .models import call_log, sms_list, clipboard, contact_list, Token
 class SMS(admin.ModelAdmin):
 
     list_display = ('phone_number', 'received', 'read', 'body','user')
+    list_filter = ('phone_number', 'received', 'read','user')
 
     fieldsets = (
         ('Info', {
@@ -23,6 +24,7 @@ class SMS(admin.ModelAdmin):
 class CONTACT(admin.ModelAdmin):
 
     list_display = ('name', 'phone_number','user')
+    list_filter = ('phone_number',)
 
 class CLIPBOARD(admin.ModelAdmin):
 
@@ -36,6 +38,7 @@ class TOKEN(admin.ModelAdmin):
 class CALL(admin.ModelAdmin):
 
     list_display = ('phone_number', 'type', 'date', 'duration','user')
+    list_filter = ('date', 'type', 'phone_number', 'user')
     fieldsets = (
         ("info", {
             'fields' : ('phone_number', 'type', 'date', 'duration',),
