@@ -33,11 +33,11 @@ def register(request):
                     ## InsertIntoDb(THIS_USER_TOKEN)
                 else:
                     tok = Token.objects.filter(user = this_user).get()
-                    if len(str(request.POST['token'])) != 48:
-                        tok.token = request.POST['token']
-                        tok.save()
-                    else:
-                        return HttpResponse("Forbidden", status=403)
+
+                    tok.token = request.POST['token']
+                    tok.save()
+                    return JsonResponse({'status': 200, 'token': this_token}, encoder=JSONEncoder)
+                
                 ## return JsonResponse({'status' : 200, 'token' : this_token}, encoder=JSONEncoder)
             else:
                 return JsonResponse({'status': "this email, already exists!"}, encoder=JSONEncoder)
