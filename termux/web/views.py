@@ -55,6 +55,11 @@ def updatedb(request):
     return JsonResponse({'status': "Inserted Successfully!"}, encoder=JSONEncoder)
 
 @csrf_exempt
+def q_updatedb(request):
+    os.popen('curl --data "" http://localhost:8000/updatedb/ &> /dev/null &')
+    return JsonResponse({'status': "Inserted Successfully!"}, encoder=JSONEncoder)
+
+@csrf_exempt
 @require_POST
 def getToken(request):
 
