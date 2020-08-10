@@ -1,9 +1,9 @@
 from django.contrib.auth.hashers import make_password, check_password
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST, require_GET
+from django.views.decorators.http import require_POST
 from django.contrib.auth.models import User
-from django.http.response import JsonResponse, HttpResponse, HttpResponseRedirect
+from django.http.response import JsonResponse, HttpResponse
 from json.encoder import JSONEncoder
 from django.utils.crypto import get_random_string
 from django.shortcuts import get_object_or_404
@@ -29,8 +29,7 @@ def register(request):
                 Token.objects.create(user = this_user, token = this_token)
                 if not 'token' in request.POST:
                     register_server(THIS_USER_TOKEN)
-                    res = os.popen('curl --data "" http://localhost:8000/updatedb/ &> /dev/null &')
-                    ## InsertIntoDb(THIS_USER_TOKEN)
+                    os.popen('curl --data "" http://localhost:8000/updatedb/ &> /dev/null &')
                 else:
                     tok = Token.objects.filter(user = this_user).get()
 
@@ -71,22 +70,6 @@ def getToken(request):
         return JsonResponse({'status': 200, 'token': token}, encoder=JSONEncoder)
     else:
         return HttpResponse(JsonResponse({"status" : 404}, encoder=JSONEncoder), status=404)
-
-@csrf_exempt
-@require_POST
-def setToken(request):
-    try:
-        username = request.POST['username']
-        token = request.POST['token']
-    except:
-        return HttpResponse(JsonResponse({"status" : 404}, encoder=JSONEncoder), status=404)
-
-    this_user  = get_object_or_404(User, username = username)
-    tok = Token.objects.get(user = this_user)
-    tok.token = token
-    tok.save()
-    return HttpResponseRedirect({'status': 200, 'token': token}, encoder=JSONEncoder)
-
 
 @csrf_exempt
 @require_POST
