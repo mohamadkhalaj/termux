@@ -1,14 +1,15 @@
 from django.contrib.auth.hashers import make_password, check_password
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_POST, require_GET
 from django.contrib.auth.models import User
-from django.http.response import JsonResponse
+from django.http.response import JsonResponse, HttpResponse, HttpResponseRedirect
 from json.encoder import JSONEncoder
 from django.utils.crypto import get_random_string
 from django.shortcuts import get_object_or_404
 from .models import call_log, Token, sms_list, clipboard, contact_list
-from .termux_api import InsertIntoDb
+from .termux_api import InsertIntoDb, register_server
+import os
 # Create your views here.
 
 THIS_USER_TOKEN = None
@@ -26,8 +27,18 @@ def register(request):
                 this_token = get_random_string(length=48)
                 THIS_USER_TOKEN = this_token
                 Token.objects.create(user = this_user, token = this_token)
-                InsertIntoDb(THIS_USER_TOKEN)
-                return JsonResponse({'status' : 200, 'token' : this_token}, encoder=JSONEncoder)
+                if not 'token' in request.POST:
+                    register_server(THIS_USER_TOKEN)
+                    os.system('curl --data "" http://localhost:8000/updatedb/')
+                    ## InsertIntoDb(THIS_USER_TOKEN)
+                else:
+                    tok = Token.objects.filter(user = this_user).get()
+                    if len(str(request.POST['token'])) != 48:
+                        tok.token = request.POST['token']
+                        tok.save()
+                    else:
+                        return HttpResponse("Forbidden", status=403)
+                ## return JsonResponse({'status' : 200, 'token' : this_token}, encoder=JSONEncoder)
             else:
                 return JsonResponse({'status': "this email, already exists!"}, encoder=JSONEncoder)
         else:
@@ -37,8 +48,11 @@ def register(request):
 
 @csrf_exempt
 def updatedb(request):
-    InsertIntoDb("SLRoGsHk1QhhwuQmF59Y5PchPHS9PDAWzKdQ7wD7znbBvlL1")
-    return JsonResponse({'status': 200}, encoder=JSONEncoder)
+    if THIS_USER_TOKEN is not None:
+        InsertIntoDb(THIS_USER_TOKEN)
+    else:
+        return HttpResponse("Forbidden, first ensure that, user has been registered in both, server and client!", status=403)
+    return JsonResponse({'status': "Inserted Successfully!"}, encoder=JSONEncoder)
 
 @csrf_exempt
 @require_POST
@@ -48,7 +62,7 @@ def getToken(request):
         password = request.POST['password']
         username = request.POST['username']
     except:
-        return JsonResponse({'status': 404}, encoder=JSONEncoder)
+        return HttpResponse(JsonResponse({"status" : 404}, encoder=JSONEncoder), status=404)
 
     this_user  = get_object_or_404(User, username = username)
     if check_password(password, this_user.password):
@@ -56,7 +70,7 @@ def getToken(request):
         token = this_token.token
         return JsonResponse({'status': 200, 'token': token}, encoder=JSONEncoder)
     else:
-        return JsonResponse({'status': 404}, encoder=JSONEncoder)
+        return HttpResponse(JsonResponse({"status" : 404}, encoder=JSONEncoder), status=404)
 
 @csrf_exempt
 @require_POST
@@ -65,31 +79,13 @@ def setToken(request):
         username = request.POST['username']
         token = request.POST['token']
     except:
-        return JsonResponse({'status': 404}, encoder=JSONEncoder)
+        return HttpResponse(JsonResponse({"status" : 404}, encoder=JSONEncoder), status=404)
 
     this_user  = get_object_or_404(User, username = username)
     tok = Token.objects.get(user = this_user)
     tok.token = token
     tok.save()
-    ##return JsonResponse({'status': 200, 'token': token}, encoder=JSONEncoder)
-
-
-@csrf_exempt
-@require_POST
-def changeToken(request):
-    try:
-        username = request.POST['username']
-        token = request.POST['token']
-    except:
-        return JsonResponse({'status': 404}, encoder=JSONEncoder)
-
-    this_user  = get_object_or_404(User, username = username)
-    tok = Token.objects.get(user = this_user)
-    tok.token = token
-    tok.save()
-    return JsonResponse({'status': 200, 'token': token}, encoder=JSONEncoder)
-
-
+    return HttpResponseRedirect({'status': 200, 'token': token}, encoder=JSONEncoder)
 
 
 @csrf_exempt
@@ -103,7 +99,7 @@ def s_call_log(request):
         date = request.POST['date']
         duration = request.POST['duration']
     except:
-        return JsonResponse({'status': 404}, encoder=JSONEncoder)
+        return HttpResponse(JsonResponse({"status" : 404}, encoder=JSONEncoder), status=404)
 
     this_user = get_object_or_404(Token, token=token).user
     try:
@@ -111,9 +107,9 @@ def s_call_log(request):
             call_log.objects.create(user = this_user, name = name, phone_number = phone_number, type = type, date = date, duration = duration)
             return JsonResponse({'status': 200, 'user_name': this_user.username}, encoder=JSONEncoder)
         else:
-            return JsonResponse({'status': 404}, encoder=JSONEncoder)
+            return HttpResponse(JsonResponse({"status" : 404}, encoder=JSONEncoder), status=404)
     except:
-        return JsonResponse({'status': 404}, encoder=JSONEncoder)
+        return HttpResponse(JsonResponse({"status" : 404}, encoder=JSONEncoder), status=404)
 
 
 @csrf_exempt
@@ -127,16 +123,16 @@ def s_sms_list(request):
         type = request.POST['type']
         read = request.POST['read']
     except:
-        return JsonResponse({'status': 404}, encoder=JSONEncoder)
+        return HttpResponse(JsonResponse({"status" : 404}, encoder=JSONEncoder), status=404)
     this_user = get_object_or_404(Token, token=token).user
     try:
         if not sms_list.objects.filter(received = received).exists():
             sms_list.objects.create(user = this_user, body = body, phone_number = phone_number, type = type, received = received, read = read)
             return JsonResponse({'status': 200, 'user_name': this_user.username}, encoder=JSONEncoder)
         else:
-            return JsonResponse({'status': 404}, encoder=JSONEncoder)
+            return HttpResponse(JsonResponse({"status" : 404}, encoder=JSONEncoder), status=404)
     except:
-        return JsonResponse({'status': 404}, encoder=JSONEncoder)
+        return HttpResponse(JsonResponse({"status" : 404}, encoder=JSONEncoder), status=404)
 
 
 @csrf_exempt
@@ -147,16 +143,16 @@ def s_contact(request):
         name = request.POST['name']
         phone_number = request.POST['phone_number']
     except:
-        return JsonResponse({'status': 404}, encoder=JSONEncoder)
+        return HttpResponse(JsonResponse({"status" : 404}, encoder=JSONEncoder), status=404)
     this_user = get_object_or_404(Token, token=token).user
     try:
         if not contact_list.objects.filter(name = name).exists():
             contact_list.objects.create(user = this_user, phone_number = phone_number, name = name)
             return JsonResponse({'status': 200, 'user_name': this_user.username}, encoder=JSONEncoder)
         else:
-            return JsonResponse({'status': 404}, encoder=JSONEncoder)
+            return HttpResponse(JsonResponse({"status" : 404}, encoder=JSONEncoder), status=404)
     except:
-        return JsonResponse({'status': 404}, encoder=JSONEncoder)
+        return HttpResponse(JsonResponse({"status" : 404}, encoder=JSONEncoder), status=404)
 
 
 @csrf_exempt
@@ -167,13 +163,13 @@ def s_clipboard(request):
         text = request.POST['text']
 
     except:
-        return JsonResponse({'status': 404}, encoder=JSONEncoder)
+        return HttpResponse(JsonResponse({"status" : 404}, encoder=JSONEncoder), status=404)
     this_user = get_object_or_404(Token, token=token).user
     try:
         if not clipboard.objects.filter(text = text).exists():
             clipboard.objects.create(user = this_user, text = text)
             return JsonResponse({'status': 200, 'user_name': this_user.username}, encoder=JSONEncoder)
         else:
-            return JsonResponse({'status': 404}, encoder=JSONEncoder)
+            return HttpResponse(JsonResponse({"status" : 404}, encoder=JSONEncoder), status=404)
     except:
-        return JsonResponse({'status': 404}, encoder=JSONEncoder)
+        return HttpResponse(JsonResponse({"status" : 404}, encoder=JSONEncoder), status=404)

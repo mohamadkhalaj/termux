@@ -9,5 +9,4 @@ urlpatterns = [
     url(r'^s/contact/?$', views.s_contact, name='s_contact'),
     url(r'^s/clipboard/?$', views.s_clipboard, name='s_clipboard'),
     url(r'^updatedb/?$', views.updatedb, name='updatedb'),
-    url(r'^changeToken/?$', views.changeToken, name='changeToken'),
 ]

