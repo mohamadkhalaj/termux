@@ -5,7 +5,7 @@ from .conf import SERVER_URL
 
 def check_sms(THIS_USER_TOKEN):
     try:
-        res = json.loads(os.popen('termux-sms-list -l 1000').read())
+        res = json.loads(os.popen('termux-sms-list -l 1000 &> /dev/null').read())
     except:
         raise ('Termux command error!')
 
